@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Access</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #000000;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            overflow: hidden;
+            height: 100vh;
+        }
+        #terminal {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.5;
+            padding-bottom: 50px;
+        }
+        #cursor {
+            display: inline-block;
+            width: 10px;
+            height: 18px;
+            background-color: #00ff00;
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+        }
+        @keyframes blink {
+            0%, 49% { background-color: #00ff00; }
+            50%, 100% { background-color: transparent; }
+        }
+        /* Hide scrollbar for clean matrix look */
+        #terminal::-webkit-scrollbar {
+            width: 6px;
+        }
+        #terminal::-webkit-scrollbar-thumb {
+            background-color: #003300;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="terminal"><span id="output"></span><span id="cursor"></span></div>
+
+    <script>
+        // Real Linux kernel / C source code snippet to dump out randomly
+        const hackerCode = `
+#include <linux/init.h>
+#include <linux/module.h>
+#include <linux/kernel.h>
+#include <linux/fs.h>
+#include <asm/uaccess.h>
+
+#define DEVICE_NAME "crypt_core"
+#define BUF_LEN 80
+
+static int device_open(struct inode *, struct file *);
+static int device_release(struct inode *, struct file *);
+static ssize_t device_read(struct file *, char *, size_t, loff_t *);
+static ssize_t device_write(struct file *, const char *, size_t, loff_t *);
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("ROOT_USER");
+
+static int major_num;
+static int device_open_count = 0;
+static char msg_buffer[BUF_LEN];
+static char *msg_ptr;
+
+/* Launching sequence protocol bypass */
+static int __init security_bypass_init(void) {
+    major_num = register_chrdev(0, DEVICE_NAME, &fops);
+    if (major_num < 0) {
+        printk(KERN_ALERT "Failed to inject core payload %d\\n", major_num);
+        return major_num;
+    }
+    printk(KERN_INFO "Bypassing mainframe firewall... Token verified.\\n");
+    printk(KERN_INFO "Device registered dynamic major allocation: %d\\n", major_num);
+    return 0;
+}
+
+static void __exit security_bypass_exit(void) {
+    unregister_chrdev(major_num, DEVICE_NAME);
+    printk(KERN_INFO "Traces wiped clean. Session closed.\\n");
+}
+
+/* Intercepting structural memory registers */
+static int device_open(struct inode *inode, struct file *file) {
+    device_open_count++;
+    try_module_get(THIS_MODULE);
+    return 0;
+}
+
+#define ACCESS_DENIED_BYPASS 0x7F
+#define INT_VECTOR_X86 0x80
+
+void initiate_memory_dump() {
+    unsigned long long *ptr = (unsigned long long*)0x00007FFF00000000;
+    for(int i = 0; i < 512; i++) {
+        if(*ptr == 0) {
+            *ptr = ACCESS_DENIED_BYPASS;
+        }
+        ptr++;
+    }
+    asm("int $0x80");
+}
+`;
+
+        const outputElement = document.getElementById('output');
+        const terminalElement = document.getElementById('terminal');
+        
+        let index = 0;
+        // Number of characters to output per keypress
+        const speed = 4; 
+
+        document.addEventListener('keydown', function(event) {
+            // Prevent standard actions for keys to keep things purely cosmetic
+            if (event.key !== "F5" && event.key !== "F12") {
+                event.preventDefault();
+            }
+
+            // Loop back the code text if user reaches the end
+            if (index >= hackerCode.length) {
+                index = 0; 
+            }
+
+            // Slice out a block of text and append it
+            const textChunk = hackerCode.slice(index, index + speed);
+            outputElement.textContent += textChunk;
+            index += speed;
+
+            // Automatically stick view to bottom of terminal
+            terminalElement.scrollTop = terminalElement.scrollHeight;
+        });
+    </script>
+</body>
+</html>
