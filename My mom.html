@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation: Bala & Mahi</title>
+    <!-- Elegant Google Fonts -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f7ebe8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Card Container */
+        .invitation-card {
+            background-color: #ffffff;
+            max-width: 500px;
+            width: 100%;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(224, 169, 175, 0.3);
+            text-align: center;
+            border: 8px double #e0a9af;
+            position: relative;
+            background-image: radial-gradient(rgba(247, 235, 232, 0.3) 1px, transparent 0);
+            background-size: 20px 20px;
+        }
+
+        /* Decorative Floral Corner Elements */
+        .invitation-card::before, .invitation-card::after {
+            content: "✿";
+            color: #e0a9af;
+            font-size: 24px;
+            position: absolute;
+        }
+        .invitation-card::before { top: 15px; left: 15px; }
+        .invitation-card::after { bottom: 15px; right: 15px; }
+
+        /* Typography */
+        .tagline {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #8a7a7b;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .hosts {
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: #5c4f50;
+            margin-bottom: 25px;
+        }
+
+        .couple-names {
+            font-family: 'Alex Brush', cursive;
+            font-size: 56px;
+            color: #b06e75;
+            margin: 20px 0;
+            line-height: 1.1;
+        }
+
+        .ampersand {
+            font-size: 32px;
+            display: block;
+            color: #e0a9af;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            margin: 5px 0;
+        }
+
+        .request-text {
+            font-size: 14px;
+            color: #7a6b6c;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Event Details Divider Layout */
+        .details-container {
+            border-top: 1px solid #f2dbdd;
+            border-bottom: 1px solid #f2dbdd;
+            padding: 20px 0;
+            margin-bottom: 35px;
+        }
+
+        .date {
+            font-size: 16px;
+            font-weight: 600;
+            color: #b06e75;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .time, .venue {
+            font-size: 14px;
+            color: #5c4f50;
+            margin-bottom: 5px;
+            line-height: 1.5;
+        }
+
+        .venue strong {
+            color: #b06e75;
+            font-weight: 600;
+        }
+
+        /* RSVP Action Button */
+        .rsvp-btn {
+            display: inline-block;
+            background-color: #b06e75;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(176, 110, 117, 0.4);
+        }
+
+        .rsvp-btn:hover {
+            background-color: #94565c;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(176, 110, 117, 0.6);
+        }
+
+        /* Responsive Settings */
+        @media (max-width: 480px) {
+            .invitation-card {
+                padding: 30px 20px;
+            }
+            .couple-names {
+                font-size: 46px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="invitation-card">
+        <p class="tagline">Save The Date</p>
+        <p class="hosts">TOGETHER WITH THEIR FAMILIES</p>
+        
+        <div class="couple-names">
+            Bala
+            <span class="ampersand">&amp;</span>
+            Mahi
+        </div>
+        
+        <p class="request-text">
+            request the pleasure of your company<br>
+            at the celebration of their wedding
+        </p>
+        
+        <div class="details-container">
+            <p class="date">Sunday, August 15, 2027</p>
+            <p class="time">at ten o'clock in the morning</p>
+            <p class="venue">
+                <strong>Inayath Mahal</strong><br>
+                8, Mosque street, Contonment, Pallavaram, Tamil nadu
+            </p>
+        </div>
+        
+        <!-- Replace href link with your wedding website, Google Form, or email -->
+        <a href="mailto:rsvp@://example.com and Mahi Wedding RSVP" class="rsvp-btn">RSVP Online</a>
+    </div>
+
+</body>
+</html>
