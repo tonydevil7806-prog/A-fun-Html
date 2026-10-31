@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERMINAL://ACCESS_GRANTED</title>
+    <style>
+        /* Base terminal environment styling */
+        body, html {
+            background-color: #000000;
+            color: #00ff33;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        /* Scanline CRT overlay effect */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 3px, 6px 100%;
+            pointer-events: none;
+        }
+
+        /* Glowing text container */
+        #terminal-box {
+            text-shadow: 0 0 5px #00ff33;
+            font-size: 16px;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* Blinking terminal cursor */
+        .cursor {
+            display: inline-block;
+            background-color: #00ff33;
+            width: 8px;
+            height: 18px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 49% { background-color: #00ff33; }
+            50%, 100% { background-color: transparent; }
+        }
+
+        /* Hidden scrollbar */
+        #terminal-box::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="terminal-box"><span id="log"></span><span class="cursor"></span></div>
+
+    <script>
+        // Array of realistic-looking system output strings
+        const hackerLines = [
+            "Initializing kernel security bypass override protocols...",
+            "Connecting to remote node proxy at 192.168.84.102:443...",
+            "STATUS: Connection established. High latency detected.",
+            "Injecting payload package into system memory map...",
+            "Attempting to break 4096-bit RSA encryption layer...",
+            "CRITICAL: Firewalls detected! Rerouting traffic through VPN tunnels...",
+            "Tunnel 1: ACTIVE (Zurich, CH)",
+            "Tunnel 2: ACTIVE (Reykjavik, IS)",
+            "Cracking root hash: $6$rounds=40000$local_admin_root...",
+            "PASSWORD DECRYPTED: *************** [UID: 0]",
+            "Escalating administrative system privileges...",
+            "Gaining interactive bash shell access...",
+            "root@mainframe:~# rm -rf /sys/firewall/logs",
+            "Wiping execution footprints from system auditing daemon...",
+            "Downloading encrypted databases...",
+            "Progress: [██████████████████████████████] 100%",
+            "SUCCESS: All sensitive archives compiled locally.",
+            "System access granted permanently. Leaving backdoor open...",
+            "--------------------------------------------------"
+        ];
+
+        const logElement = document.getElementById("log");
+        let lineIndex = 0;
+        let charIndex = 0;
+
+        function simulateHackerTyping() {
+            if (lineIndex < hackerLines.length) {
+                let currentLine = hackerLines[lineIndex];
+                
+                // If starting a new line, add a newline character
+                if (charIndex === 0 && lineIndex > 0) {
+                    logElement.textContent += "\n";
+                }
+                
+                // Type next character
+                logElement.textContent += currentLine.charAt(charIndex);
+                charIndex++;
+
+                // Auto scroll down to keep line visible
+                window.scrollTo(0, document.body.scrollHeight);
+
+                if (charIndex < currentLine.length) {
+                    // Variable delay to mimic human or processing spikes
+                    setTimeout(simulateHackerTyping, Math.random() * 30 + 10);
+                } else {
+                    // Reset character index for next line block
+                    charIndex = 0;
+                    lineIndex++;
+                    // Short pause after finishing a whole line
+                    setTimeout(simulateHackerTyping, 600);
+                }
+            } else {
+                // Loop the simulation back from the beginning indefinitely
+                lineIndex = 0;
+                charIndex = 0;
+                logElement.textContent += "\n\n[SYSTEM RESET]\n\n";
+                setTimeout(simulateHackerTyping, 1500);
+            }
+        }
+
+        // Run the typing sequence immediately on page launch
+        simulateHackerTyping();
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRITICAL_SYSTEM_OVERRIDE</title>
+    <style>
+        /* Setup dark full-screen workspace */
+        body, html {
+            background-color: #000;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* Matrix digital rain canvas placement */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.25; /* Subtle background fade */
+        }
+
+        /* Foreground terminal window overlay */
+        .terminal-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            padding: 30px;
+            box-sizing: border-box;
+            pointer-events: none; /* Allows canvas clicks if needed */
+        }
+
+        /* Glowing green retro text properties */
+        #output-stream {
+            color: #00ff66;
+            text-shadow: 0 0 8px rgba(0, 255, 102, 0.8);
+            font-size: 18px;
+            font-weight: bold;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        /* Pulse animation for the console cursor */
+        .cursor {
+            display: inline-block;
+            background-color: #00ff66;
+            width: 10px;
+            height: 20px;
+            animation: blink 0.8s infinite;
+            box-shadow: 0 0 8px rgba(0, 255, 102, 0.8);
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        /* Centered alert modal banner hidden by default */
+        #alert-banner {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            background-color: rgba(0, 0, 0, 0.9);
+            border: 3px solid #ff0033;
+            color: #ff0033;
+            padding: 40px 60px;
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 3px;
+            box-shadow: 0 0 30px rgba(255, 0, 51, 0.6);
+            text-shadow: 0 0 10px rgba(255, 0, 51, 0.8);
+        }
+
+        #alert-banner .subtitle {
+            font-size: 16px;
+            margin-top: 15px;
+            color: #ffffff;
+            letter-spacing: 1px;
+            text-shadow: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dynamic matrix rain canvas component -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Foreground command execution stream -->
+    <div class="terminal-container">
+        <div id="output-stream">INITIALIZING INTERACTIVE INTERFACE... TAP ANY KEYS ON YOUR KEYBOARD TO COMPILE DEPLOYMENT SCRIPTS.<br><br>root@core_mainframe:~# </div><span class="cursor"></span>
+    </div>
+
+    <!-- Intrusion notification alert modal -->
+    <div id="alert-banner">
+        ⚠️ ACCESS GRANTED ⚠️
+        <div class="subtitle">ALL DATA ENCRYPTED & COPIED TO REMOTE REPOSITORY</div>
+    </div>
+
+    <script>
+        /* --- PART 1: MATRIX DIGITAL RAIN COMPONENT --- */
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const katakana = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ1234567890XYZ';
+        const alphabet = katakana.split('');
+
+        const fontSize = 16;
+        let columns = canvas.width / fontSize;
+        let rainDrops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet[Math.floor(Math.random() * alphabet.length)];
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 30);
+
+
+        /* --- PART 2: INTERACTIVE AUTO-TYPING COMPONENT --- */
+        const fakeCode = `import os
+import sys
+import socket
+import crypto
+
+def exploit_stack_overflow(target_ip, port):
+    payload = b"A" * 512 + b"\\xef\\xbe\\xad\\xde" 
+    print(f"[*] Constructing buffer attack payload targeting {target_ip}...")
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect((target_ip, port))
+    sock.send(payload)
+    
+def download_mainframe_ledger():
+    print("[-] Bypassing multi-factor network authentication keys...")
+    print("[-] Injecting SQL dictionary sequence into user databases...")
+    print("[+] SUCCESS: DB root hash dumped.")
+    print("--------------------------------------------------")
+
+exploit_stack_overflow("10.0.4.15", 8080)
+download_mainframe_ledger()`;
+
+        const terminalStream = document.getElementById('output-stream');
+        const alertBox = document.getElementById('alert-banner');
+        let charPointer = 0;
+
+        // Triggers chunks of code on keypress events
+        document.addEventListener('keydown', function(event) {
+            event.preventDefault(); // Suppresses browser hotkeys
+            
+            // Add a chunk of 3 characters per key down event for natural pace
+            for(let i = 0; i < 3; i++) {
+                if (charPointer < fakeCode.length) {
+                    terminalStream.textContent += fakeCode.charAt(charPointer);
+                    charPointer++;
+                } else {
+                    // Trigger access alert pop-up once text compilation finishes
+                    alertBox.style.display = 'block';
+                    break;
+                }
+            }
+            // Auto scroll browser layout downwards
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+    </script>
+</body>
+</html>
+
